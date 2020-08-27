@@ -97,6 +97,25 @@ class LeetcodeTests: XCTestCase {
         print(result)
     }
     
+    func testAddTwoNumbers() {
+        let solution = Solution()
+        let result = solution.addTwoNumbersByArray([0], [3,7])
+        print(result)
+        XCTAssert(result.elementsEqual([3,7]))
+    }
+    
+    func testLengthOfLongestSubstring() {
+        let solution = Solution()
+        let result = solution.lengthOfLongestSubstring1("abba1")
+        XCTAssert(result == 3)
+    }
+    
+    func testReverse() {
+        let solution = Solution()
+        let result = solution.reverse(120)
+        XCTAssert(result == 21)
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {

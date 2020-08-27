@@ -185,27 +185,35 @@ class Solution {
     
     /// 3. Longest Substring Without Repeating Characters
     func lengthOfLongestSubstring(_ s: String) -> Int {
-//        var i = 0
-//        var j = 0
-//        var c = 0
-//        var n = s.count
-//        var set = Set<Int>()
-//        while i<n && j<n {
-//            if set.contains(s.substring(with: ))
-//        }
-        
         var i = 0
+        var j = 0
         var maxNum = 0
         var checkDict = [String: Int]()
-        for j in 0..<s.count {
-            let character = s[s.index(s.startIndex, offsetBy: j)]
-            if let existingIndex = checkDict[String(character)] {
+        for c in s {
+            j = j + 1
+            if let existingIndex = checkDict[String(c)] {
                 i = max(existingIndex, i)
             }
-            maxNum = max(maxNum, j - i + 1)
-            checkDict[String(character)] = j + 1
+            maxNum = max(maxNum, j - i)
+            checkDict[String(c)] = j
         }
         return maxNum
+    }
+    
+    // 优化版，网上参考 https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/solution/wu-zhong-fu-zi-fu-chuan-de-zui-chang-zi-chuan-swif/
+    func lengthOfLongestSubstring1(_ s: String) -> Int {
+        if s.isEmpty { return 0 }
+        let unicode = s.unicodeScalars.map { Int($0.value) }
+        var indexs = Array(repeating: -1, count: 128)
+        var left = -1
+        var maxCount = 0
+        
+        for i in 0..<unicode.count {
+            left = max(left, indexs[unicode[i]])
+            indexs[unicode[i]] = i
+            maxCount = max(maxCount, i - left)
+        }
+        return maxCount
     }
     
     /// 括弧组合
@@ -321,4 +329,130 @@ class Solution {
         return dp[m][n]
     }
 
+//    2. 两数相加
+//    给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
+//
+//    如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+//
+//    您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+//
+//    示例：
+//
+//    输入：(2 -> 4 -> 3) + (5 -> 6 -> 4)
+//    输出：7 -> 0 -> 8
+//    原因：342 + 465 = 807
+
+//    Definition for singly-linked list.
+    public class ListNode {
+        public var val: Int
+        public var next: ListNode?
+        public init(_ val: Int) {
+            self.val = val
+            self.next = nil
+        }
+    }
+    
+    func addTwoNumbersByArray (_ a1: [Int], _ a2: [Int]) -> [Int] {
+        var l1 : ListNode? = nil
+        var tempLink : ListNode? = nil
+        for i in a1 {
+            if l1 != nil {
+                tempLink?.next = ListNode(i)
+                tempLink = tempLink?.next
+            } else {
+                l1 = ListNode(i)
+                tempLink = l1
+            }
+        }
+        
+        var l2 : ListNode? = nil
+        for i in a2 {
+            if l2 != nil {
+                tempLink?.next = ListNode(i)
+                tempLink = tempLink?.next
+            } else {
+                l2 = ListNode(i)
+                tempLink = l2
+            }
+        }
+        
+        var res = self.addTwoNumbers(l1, l2)
+        var a : [Int] = []
+        while res != nil {
+            a.append(res!.val)
+            res = res?.next
+        }
+        return a
+    }
+    
+    func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+        
+        if l1 == nil && l2 == nil {
+            return nil
+        }
+        
+        let res = ListNode(0)
+        var curSum = res
+        
+        var cur1 = l1
+        var cur2 = l2
+        var carry = 0
+        
+        while cur1 != nil || cur2 != nil {
+            let sum = (cur1?.val ?? 0) + (cur2?.val ?? 0) + carry
+            carry = sum/10
+            curSum.next = ListNode(sum%10)
+            curSum = curSum.next!
+                        
+            cur1 = cur1?.next
+            cur2 = cur2?.next
+        }
+        
+        if carry > 0 {
+            curSum.next = ListNode(carry)
+        }
+        
+        return res.next
+    }
+    
+    // 递归
+//    func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+//        var result: ListNode? = nil
+//        
+//        if l1 == nil && l2 == nil {
+//            return result
+//        }
+//        
+//        var h1 = l1
+//        var h2 = l2
+//        var sum = (h1?.val ?? 0) + (h2?.val ?? 0)
+//        if sum >= 10 {
+//            sum = sum % 10
+//            h1 = h1?.next ?? ListNode(0)
+//            h1!.val = h1!.val + 1
+//        }else {
+//            h1 = h1?.next
+//        }
+//        result = ListNode(sum)
+//        h2 = h2?.next
+//        result!.next = addTwoNumbers(h1, h2)
+//        
+//        return result
+//    }
+    
+    // MARK:7. 整数反转
+    func reverse(_ x: Int) -> Int {
+        var res = 0
+        var t = x
+        while t != 0 {
+            res = res*10 + t%10
+            t = t/10
+        }
+        
+        if res > Int32.max || res < Int32.min {
+            return 0
+        }
+        
+        return res
+    }
 }
