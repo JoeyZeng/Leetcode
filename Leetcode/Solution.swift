@@ -455,4 +455,65 @@ class Solution {
         
         return res
     }
+    
+    // MARK: 快排 1 round
+    func partition(_ a: inout [Int], _ low: Int, _ high: Int) -> Int {
+        var i = low
+        var j = high
+        let temp = a[low]
+        while i < j {
+            while i < j, a[j] >= temp {
+                j -= 1
+            }
+            if i < j {
+                a[i] = a[j]
+                i += 1
+            }
+            
+            while i < j, a[i] <= temp {
+                i += 1
+            }
+            if i < j {
+                a[j] = a[i]
+                j -= 1
+            }
+        }
+        
+        a[i] = temp
+        return i
+    }
+    
+    func quickSort(_ array: [Int]) -> [Int] {
+        var a = array
+        _quickSort(&a, 0, array.count - 1)
+        return a
+    }
+    
+    func _quickSort(_ a: inout [Int], _ low: Int, _ high: Int) {
+        if low >= high {
+            return
+        }
+        let index = partition(&a, low, high)
+        _quickSort(&a, low, index - 1)
+        _quickSort(&a, index + 1, high)
+    }
+    
+    // MARK: 输入n个整数，找出其中最小的K个数
+    func getLeastNumbers(_ array:[Int], _ k:Int) -> [Int] {
+        var a = array
+        var index = 0
+        var low = 0
+        var high = array.count - 1
+        
+        while index != k, low < high {
+            index = partition(&a, low, high)
+            if index < k {
+                low = index + 1
+            } else {
+                high = index - 1
+            }
+        }
+        
+        return Array(a.prefix(k))
+    }
 }

@@ -116,6 +116,21 @@ class LeetcodeTests: XCTestCase {
         XCTAssert(result == 21)
     }
     
+    func testPartition() {
+        let solution = Solution()
+        var a = [3,2,6,5,1,4,0]
+        let result = solution.partition(&a, 0, a.count-1)
+        print("sort array is \(a) \nindex is \(result)")
+    }
+    
+    func testGetLeastNumbers() {
+        let solution = Solution()
+        let a = [3,2,6,5,1,4,0]
+        let result = solution.getLeastNumbers(a, 2)
+//        let result = solution.quickSort(a)
+        print("origin array is \(a) \n k array is \(result)")
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
