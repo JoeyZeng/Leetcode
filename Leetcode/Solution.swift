@@ -516,4 +516,173 @@ class Solution {
         
         return Array(a.prefix(k))
     }
+    
+    // MARK: 一个整型数组里除了两个数字之外，其他的数字都出现了两次。请写程序找出这两个只出现一次的数字。要求时间复杂度为O(n)，空间复杂度为O(1)。
+    func findNumsAppearOnce(_ array:[Int]) -> (Int,Int) {
+        var res = 0
+        for a in array {
+            res = res^a
+        }
+        
+        var index = 0
+        for i in 0...64 {
+            if (res>>i) & 1 == 1 {
+                index = i
+                break
+            }
+            index = index + 1
+        }
+        
+        var firstNum = 0
+        var secondNum = 0
+        
+        for a in array {
+            if (a>>index) & 1 == 1 {
+                firstNum = firstNum^a
+            } else {
+                secondNum = secondNum^a
+            }
+        }
+        
+        return (firstNum, secondNum)
+
+    }
+    
+    // MARK: 启动三个线程A，B，C，打印10次 按照ABC的顺序输出（异步转同步）
+    func printABC() {
+        let lockA = NSLock()
+        let lockB = NSLock()
+        let lockC = NSLock()
+
+        lockB.lock()
+        lockC.lock()
+        
+        let queueA = DispatchQueue(label: "qA", attributes: .concurrent)
+        
+        queueA.async {
+            for i in 0...2 {
+                lockA.lock()
+                print("A - \(i)")
+                lockB.unlock()
+            }
+        }
+        
+        
+        let queueB = DispatchQueue(label: "qB", attributes: .concurrent)
+        
+        queueB.async {
+            for i in 0...2 {
+                lockB.lock()
+                print("B - \(i)")
+                lockC.unlock()
+            }
+        }
+        
+        let queueC = DispatchQueue(label: "qC", attributes: .concurrent)
+        
+        queueC.async {
+            for i in 0...2 {
+                lockC.lock()
+                print("C - \(i)")
+                lockA.unlock()
+            }
+        }
+        
+    }
+    
+    public class TreeNode {
+        public var val: Int
+        public var left: TreeNode?
+        public var right: TreeNode?
+        public init(_ val: Int) {
+            self.val = val
+            self.left = nil
+            self.right = nil
+        }
+    }
+    
+    // MARK: 106. 从中序与后序遍历序列构造二叉树
+    var _inorder = [Int]()
+    var _postorder = [Int]()
+    func buildTree(_ inorder: [Int], _ postorder: [Int]) -> TreeNode? {
+        _inorder = inorder
+        _postorder = postorder
+        let res = _build(0, _inorder.count-1, 0, _postorder.count-1)
+        return res
+    }
+    
+    func _build(_ inStart: Int, _ inEnd: Int, _ postStart: Int, _ postEnd: Int) -> TreeNode? {
+        if inStart > inEnd || postStart > postEnd {
+            return nil
+        }
+        
+        let rootVal = _postorder[postEnd]
+        let rootNode = TreeNode(rootVal)
+        
+        if inStart == inEnd || postStart == postEnd {
+            return rootNode
+        }
+        
+        var inRootIndex = 0
+        for i in inStart...inEnd {
+            if _inorder[i] == rootVal {
+                inRootIndex = i
+                break
+            }
+        }
+        let leftLength = inRootIndex - inStart
+        
+        rootNode.left = _build(inStart, inRootIndex-1, postStart, postStart+leftLength-1)
+        rootNode.right = _build(inRootIndex+1, inEnd, postStart+leftLength, postEnd-1)
+        
+        return rootNode
+    }
+    
+    class func printTree(_ node: TreeNode) {
+        
+        let deep = getTreeDeep(node)
+        var level = 1
+        
+        var queue = [TreeNode]()
+        queue.append(node)
+        var printList = [String]()
+        while !queue.isEmpty {
+            
+            let root = queue.popLast()
+            if root!.val > 0 {
+                printList.append("\(root?.val ?? 0)")
+                
+                if let leftTree = root?.left {
+                    queue.insert(leftTree, at: 0)
+                } else if (level < deep) {
+                    queue.insert(TreeNode(0), at: 0)
+                }
+                if let rightTree = root?.right {
+                    queue.insert(rightTree, at: 0)
+                } else if (level < deep) {
+                    queue.insert(TreeNode(0), at: 0)
+                }
+            } else {
+                printList.append("Null")
+            }
+            
+            level = level + 1
+        }
+        let printStr = printList.joined(separator: ",")
+        print(String(format: "[%@]", printStr))
+    }
+    
+    
+    /// 返回树的最大层级
+    class func getTreeDeep(_ node: TreeNode?) -> Int {
+        
+        if node == nil {
+            return 0
+        }
+        
+        let ld = getTreeDeep(node?.left) + 1
+        let rd = getTreeDeep(node?.right) + 1
+        
+        return max(ld, rd)
+    }
 }

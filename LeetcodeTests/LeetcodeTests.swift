@@ -131,6 +131,24 @@ class LeetcodeTests: XCTestCase {
         print("origin array is \(a) \n k array is \(result)")
     }
     
+    func testPrintABC() {
+            let solution = Solution()
+            solution.printABC()
+        }
+    
+    func testFindNumsAppearOnce() {
+        let solution = Solution()
+        let result = solution.findNumsAppearOnce([2,4,3,6,3,2,5,5])
+        print(result)
+    }
+    
+    func testBuildTree() {
+        // 从中序与后序遍历序列构造二叉树
+        let solution = Solution()
+        let result = solution.buildTree([9,3,15,20,7],[9,15,7,20,3])
+        Solution.printTree(result!)
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
