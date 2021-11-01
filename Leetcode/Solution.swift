@@ -342,15 +342,7 @@ class Solution {
 //    输出：7 -> 0 -> 8
 //    原因：342 + 465 = 807
 
-//    Definition for singly-linked list.
-    public class ListNode {
-        public var val: Int
-        public var next: ListNode?
-        public init(_ val: Int) {
-            self.val = val
-            self.next = nil
-        }
-    }
+
     
     func addTwoNumbersByArray (_ a1: [Int], _ a2: [Int]) -> [Int] {
         var l1 : ListNode? = nil
@@ -590,16 +582,6 @@ class Solution {
         
     }
     
-    public class TreeNode {
-        public var val: Int
-        public var left: TreeNode?
-        public var right: TreeNode?
-        public init(_ val: Int) {
-            self.val = val
-            self.left = nil
-            self.right = nil
-        }
-    }
     
     // MARK: 106. 从中序与后序遍历序列构造二叉树
     var _inorder = [Int]()
@@ -685,4 +667,31 @@ class Solution {
         
         return max(ld, rd)
     }
+    
+//    找出数组中右边比我小的元素
+//    【题目】一个整数数组 A，找到每个元素：右边第一个比我小的下标位置，没有则用 -1 表示。
+//    输入：[5, 2]
+//    输出：[1, -1]
+    func findRightSmall(_ A: [Int]) -> [Int] {
+        var res = Array(repeating: 0, count: A.count)
+        var stack = Stack<Int>()
+        for i in 0..<A.count {
+            let x = A[i]
+            // 出栈并设置最小下标
+            while !stack.isEmpty && A[stack.top!] > x {
+                res[stack.top!] = i
+                stack.pop()
+            }
+            // 进栈
+            stack.push(i)
+        }
+        
+        // 剩下在栈里的设置为-1，表面右边没有比我小的数据
+        while !stack.isEmpty {
+            res[stack.pop()!] = -1
+        }
+        
+        return res;
+    }
+    
 }

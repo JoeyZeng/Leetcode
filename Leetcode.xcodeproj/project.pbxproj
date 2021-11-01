@@ -15,6 +15,8 @@
 		0FB692C31E1257090041639E /* LeetcodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB692C21E1257090041639E /* LeetcodeTests.swift */; };
 		0FB692CE1E1257460041639E /* Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB692CD1E1257460041639E /* Solution.swift */; };
 		0FB692CF1E126C050041639E /* Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB692CD1E1257460041639E /* Solution.swift */; };
+		6F41D6C1272F811700FE5919 /* Struct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41D6C0272F811700FE5919 /* Struct.swift */; };
+		6F41D6C2272F87D800FE5919 /* Struct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41D6C0272F811700FE5919 /* Struct.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +41,7 @@
 		0FB692C21E1257090041639E /* LeetcodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeetcodeTests.swift; sourceTree = "<group>"; };
 		0FB692C41E1257090041639E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FB692CD1E1257460041639E /* Solution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Solution.swift; sourceTree = "<group>"; };
+		6F41D6C0272F811700FE5919 /* Struct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Struct.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,7 @@
 				0FB692AD1E1257090041639E /* AppDelegate.swift */,
 				0FB692AF1E1257090041639E /* ViewController.swift */,
 				0FB692CD1E1257460041639E /* Solution.swift */,
+				6F41D6C0272F811700FE5919 /* Struct.swift */,
 				0FB692B11E1257090041639E /* Main.storyboard */,
 				0FB692B41E1257090041639E /* Assets.xcassets */,
 				0FB692B61E1257090041639E /* LaunchScreen.storyboard */,
@@ -206,6 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F41D6C1272F811700FE5919 /* Struct.swift in Sources */,
 				0FB692B01E1257090041639E /* ViewController.swift in Sources */,
 				0FB692AE1E1257090041639E /* AppDelegate.swift in Sources */,
 				0FB692CE1E1257460041639E /* Solution.swift in Sources */,
@@ -216,6 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F41D6C2272F87D800FE5919 /* Struct.swift in Sources */,
 				0FB692CF1E126C050041639E /* Solution.swift in Sources */,
 				0FB692C31E1257090041639E /* LeetcodeTests.swift in Sources */,
 			);

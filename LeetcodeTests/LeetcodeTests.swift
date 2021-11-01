@@ -149,6 +149,12 @@ class LeetcodeTests: XCTestCase {
         Solution.printTree(result!)
     }
     
+    func testFindRightSmall() {
+        let solution = Solution()
+        let result = solution.findRightSmall([1,2,4,9,4,0,5])
+        print(result)
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
